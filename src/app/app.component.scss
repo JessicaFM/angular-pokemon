@@ -1,0 +1,8 @@
+// To be fixed!!
+:host {
+  --content-padding: 20px 10px;
+}
+
+.content {
+  padding: var(--content-padding);
+}

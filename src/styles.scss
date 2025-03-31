@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'fonts' as *;
+
+body {
+  margin: 0;
+  @extend .noto-sans-regular;
+}

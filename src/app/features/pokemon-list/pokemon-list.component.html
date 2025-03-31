@@ -1,0 +1,46 @@
+<section *ngIf="pokemonList$ | async as data">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pokemon of data.list">
+        <td>
+          {{ pokemon.name }}</td>
+        <td>
+          <a [routerLink]="['/details', pokemon.id]">
+            <img src="search.png" alt="View pokemon" />
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="paginator">
+    <button (click)="previousPage(data.offset, data.limit)"
+      class="paginator-btn"
+      [disabled]="data.offset === 0">
+      ←
+    </button>
+    <ng-container *ngFor="let page of getPages(data.total, data.limit, data.offset)">
+      <ng-container *ngIf="page === '...'; else pageBtn">
+        <span class="ellipsis">...</span>
+      </ng-container>
+      <ng-template #pageBtn>
+        <button
+          *ngIf="page !== '...'"
+          (click)="goToPage(page)"
+          [class.active]="(data.offset / data.limit + 1) === page">
+          {{ page }}
+        </button>
+      </ng-template>
+    </ng-container>
+    <button (click)="nextPage(data.offset, data.limit)"
+      class="paginator-btn"
+      [disabled]="data.offset + data.limit >= data.total">
+      →
+    </button>
+  </div>
+</section>

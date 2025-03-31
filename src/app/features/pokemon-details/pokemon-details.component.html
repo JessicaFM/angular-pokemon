@@ -1,0 +1,48 @@
+<section *ngIf="pokemonItem; else skeleton" class="pokemon-card">
+  <div class="card-header">
+    <img [src]="pokemonItem.image" [alt]="pokemonItem.name" />
+    <h1>{{ pokemonItem.name | titlecase }}</h1>
+  </div>
+
+  <div class="card-stats">
+    <p class="stat-item">
+      <span class="label">Base Exp:</span>
+      <span class="value">{{ pokemonItem.base_experience }}</span>
+  </div>
+  <div class="card-stats">
+    <p class="stat-item">
+      <span class="label">HP:</span>
+      <span class="value">{{ pokemonItem.hp }}</span>
+    </p>
+    <p class="stat-item">
+      <span class="label">Attack:</span>
+      <span class="value">{{ pokemonItem.attack }}</span>
+    </p>
+    <p class="stat-item">
+      <span class="label">Defense:</span>
+      <span class="value">{{ pokemonItem.speed }}</span>
+    </p>
+    <p class="stat-item">
+      <span class="label">Speed:</span>
+      <span class="value">{{ pokemonItem.speed }}</span>
+    </p>
+  </div>
+  <div class="card-stats">
+    <p class="stat-item">
+      <span class="label">Height:</span>
+      <span class="value">{{ pokemonItem.height }}</span>
+    </p>
+    <p class="stat-item">
+      <span class="label">Weight:</span>
+      <span class="value">{{ pokemonItem.weight }}</span>
+    </p>
+  </div>
+</section>
+
+<ng-template #skeleton>
+  <div class="skeleton-card">
+    <div class="skeleton-img shimmer"></div>
+    <div class="skeleton-line shimmer"></div>
+    <div class="skeleton-line shimmer short"></div>
+  </div>
+</ng-template>
