@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PokemonListItemsResponse, PokemonResponse } from '../../models/pokemon-list.model';
+import { PokemonListItemsResponse, PokemonResponse, Species, Location } from '../../models/pokemon-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,26 @@ import { PokemonListItemsResponse, PokemonResponse } from '../../models/pokemon-
 export class PokeapiServices {
   // Basic Endpoint Root
   private readonly baseUrl = "https://pokeapi.co/api/v2/";
-  urlObject = "pokemon";
+  urlPokemonObject = "pokemon";
 
   constructor(private http: HttpClient) {}
 
-  getPokemonList(offset: number, limit: number): Observable<PokemonListItemsResponse> {
-    const url = `${this.baseUrl}${this.urlObject}?offset=${offset}&limit=${limit}`;
+  getAllPokemon(): Observable<PokemonListItemsResponse> {
+    const url = `${this.baseUrl}${this.urlPokemonObject}?limit=1300&offset=0.`;
     return this.http.get<PokemonListItemsResponse>(url);
   }
 
   getPokemonById(id: number): Observable<PokemonResponse> {
-    const url = `${this.baseUrl}${this.urlObject}/${id}`;
+    const url = `${this.baseUrl}${this.urlPokemonObject}/${id}`;
     return this.http.get<PokemonResponse>(url);
+  }
+
+  getPokemonSpecies(url: string): Observable<Species> {
+    return this.http.get<Species>(url);
+  }
+
+  getPokemonEncounters(id: number): Observable<Location[]> {
+    const url = `${this.baseUrl}pokemon/${id}/encounters`;
+    return this.http.get<Location[]>(url);
   }
 }

@@ -1,6 +1,40 @@
-@use 'fonts' as *;
+@use 'styles/fonts' as *;
+
+:root {
+  --primary-color: #3f51b5;
+  --accent-color: #ff4081;
+  --text-color: #333;
+  --custom-grey-border: #ccc;
+}
 
 body {
   margin: 0;
   @extend .noto-sans-regular;
+}
+
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid #0000;
+  border-right-color: var(--accent-color);
+  position: relative;
+  animation: l24 1s infinite linear;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+.loader:after {
+  animation-duration: 4s;
+}
+@keyframes l24 {
+  100% {transform: rotate(1turn)}
 }

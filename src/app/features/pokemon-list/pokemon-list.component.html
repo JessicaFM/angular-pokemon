@@ -1,45 +1,96 @@
 <section *ngIf="pokemonList$ | async as data">
-  <table>
+  <div class="">
+    <app-search-bar></app-search-bar>
+  </div>
+  <table class="table-responsive">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Image</th>
+        <th
+          (click)="store.toggleSort()"
+          class="clickable"
+          title="Click to sort by name">
+          Name ↑↓
+        </th>
+        <th class="mobile-hide">Base experience</th>
         <th>Details</th>
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="data.list.length === 0">
+        <td colspan="4" class="empty-message">No Pokémon found with that search.</td>
+      </tr>
       <tr *ngFor="let pokemon of data.list">
+        <ng-container *ngIf="!pokemon.image">
+          {{ store.loadMoreDetailsList(pokemon) }}
+        </ng-container>
         <td>
-          {{ pokemon.name }}</td>
+          <div class="image-wrapper">
+            <ng-container *ngIf="!hasImageError; else fallbackImage">
+              <img
+                *ngIf="pokemon.image"
+                [src]="pokemon.image"
+                [alt]="pokemon.name"
+                class="pokemon-image"
+                (load)="onImageLoad()"
+                (error)="onImageError()"
+              />
+              <div *ngIf="isLoading"
+                class="loader"
+                role="status"
+                aria-label="Loading image...">
+              </div>
+            </ng-container>
+            <ng-template #fallbackImage>
+              <img
+                src="pokeball.png"
+                alt="Loading Pokémon image"
+                class="pokemon-pokeball "
+              />
+            </ng-template>
+          </div>
+        </td>
         <td>
-          <a [routerLink]="['/details', pokemon.id]">
-            <img src="search.png" alt="View pokemon" />
+          {{ pokemon.name }}
+        </td>
+        <td class="mobile-hide">
+          {{ pokemon.base_experience }}
+        </td>
+        <td>
+          <a [routerLink]="['/details', pokemon.id]" title="View pokemon">
+            <img src="search.png" alt="View pokemon" class="list-view"/>
           </a>
         </td>
       </tr>
     </tbody>
   </table>
   <div class="paginator">
-    <button (click)="previousPage(data.offset, data.limit)"
-      class="paginator-btn"
-      [disabled]="data.offset === 0">
+    <button (click)="store.previousPage()"
+      class="pagination-btn"
+      title="Go previous page"
+      [disabled]="data.currentPage === 1">
       ←
     </button>
-    <ng-container *ngFor="let page of getPages(data.total, data.limit, data.offset)">
+    <ng-container *ngFor="let page of getPages(data.total, data.pageSize, data.currentPage)">
       <ng-container *ngIf="page === '...'; else pageBtn">
         <span class="ellipsis">...</span>
       </ng-container>
       <ng-template #pageBtn>
         <button
           *ngIf="page !== '...'"
+          [title]="'Go to page ' + page"
           (click)="goToPage(page)"
-          [class.active]="(data.offset / data.limit + 1) === page">
+          class="pagination-btn"
+          [class.active]="page === data.currentPage">
           {{ page }}
         </button>
       </ng-template>
     </ng-container>
-    <button (click)="nextPage(data.offset, data.limit)"
-      class="paginator-btn"
-      [disabled]="data.offset + data.limit >= data.total">
+    <button
+      (click)="store.nextPage(data.total)"
+      class="pagination-btn"
+      title="Go previous page"
+      [disabled]="data.currentPage * data.pageSize >= data.total">
       →
     </button>
   </div>

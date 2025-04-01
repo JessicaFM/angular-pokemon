@@ -1,0 +1,9 @@
+<div class="search-bar">
+  <input
+    type="text"
+    placeholder="Search Pokémon by name"
+    (input)="onInput($event)"
+    class="search-bar__input"
+    [value]="currentSearch"
+  />
+</div>
