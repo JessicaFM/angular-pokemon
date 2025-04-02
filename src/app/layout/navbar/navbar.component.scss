@@ -5,17 +5,14 @@
   background: #3b4cca;
   padding: 1rem 2rem;
   color: white;
-
   .brand-logo {
     height: 40px;
   }
-
   .nav-links a {
     color: white;
     text-decoration: none;
     margin-left: 1rem;
     font-weight: bold;
-
     &:hover {
       text-decoration: underline;
     }

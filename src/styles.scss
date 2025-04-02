@@ -38,3 +38,115 @@ body {
 @keyframes l24 {
   100% {transform: rotate(1turn)}
 }
+
+.container {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.fire {
+  background-color: #FF9B17;
+  border-left: 4px solid #FF9B17;
+}
+.grass {
+  background-color: lightgreen;
+  border-left: 4px solid lightgreen;
+}
+.electric {
+  background-color: yellow;
+  border-left: 4px solid yellow;
+}
+.water {
+  background-color: #70ffea;
+  border-left: 4px solid #70ffea;
+}
+.ground {
+  background-color: darkgrey;
+  border-left: 4px solid darkgrey;
+}
+.rock {
+  background-color: grey;
+  border-left: 4px solid grey;
+}
+.fairy {
+  background-color: pink;
+  border-left: 4px solid pink;
+}
+.poison {
+  background-color: greenyellow;
+  border-left: 4px solid greenyellow;
+}
+.bug {
+  background-color: #94ecbe;
+  border-left: 4px solid #94ecbe;
+}
+.dragon {
+  background-color: orange;
+  border-left: 4px solid orange;
+}
+.psychic {
+  background-color: #7c7db6;
+  border-left: 4px solid #7c7db6;
+}
+.flying {
+  background-color: #fcca46;
+  border-left: 4px solid #fcca46;
+}
+.fighting {
+  background-color: darkgrey;
+  border-left: 4px solid darkgrey;
+}
+.normal {
+  background-color: lightgrey;
+  border-left: 4px solid ightgrey;
+}
+.ice {
+  background-color: #00f2f2;
+  border-left: 4px solid #00f2f2;
+}
+.dark {
+  background-color: #4f7ecf;
+  border-left: 4px solid #4f7ecf;
+}
+.ghost {
+  background-color: #7685a7;
+  border-left: 4px solid #7685a7;
+}
+.steel {
+  background-color: steelblue;
+  border-left: 4px solid steelblue;
+}
+
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}

@@ -17,6 +17,8 @@ export class PokemonDetailsComponent {
   pokeapiServices: PokeapiServices = inject(PokeapiServices);
   pokemonItem?: Pokemon;
   isShowMore: boolean = false;
+  isLoading:boolean = true;
+  notFound:boolean = false;
   extraInfo?: {
     species: Species,
     location: Location[]
@@ -25,42 +27,54 @@ export class PokemonDetailsComponent {
   constructor(private router: Router) {
     const pokemonId = Number(this.route.snapshot.params['id']);
 
-    this.pokeapiServices.getPokemonById(pokemonId).subscribe((response: PokemonResponse) => {
-      const { front_default, other } = response.sprites;
-      const hp = response.stats.find(stat => stat.stat.name === 'hp')?.base_stat ?? 0;
-      const attack = response.stats.find(stat => stat.stat.name === 'attack')?.base_stat ?? 0;
-      const defense = response.stats.find(stat => stat.stat.name === 'defense')?.base_stat ?? 0;
-      const speed = response.stats.find(stat => stat.stat.name === 'speed')?.base_stat ?? 0;
+    this.pokeapiServices.getPokemonById(pokemonId).subscribe({
+      next: (response: PokemonResponse) => {
+        const { front_default, other } = response.sprites;
+        const hp = response.stats.find(stat => stat.stat.name === 'hp')?.base_stat ?? 0;
+        const attack = response.stats.find(stat => stat.stat.name === 'attack')?.base_stat ?? 0;
+        const defense = response.stats.find(stat => stat.stat.name === 'defense')?.base_stat ?? 0;
+        const speed = response.stats.find(stat => stat.stat.name === 'speed')?.base_stat ?? 0;
+        const type = response.types[0].type.name;
 
-      this.pokemonItem = {
-        id: pokemonId,
-        base_experience: response.base_experience,
-        name: response.name,
-        specie: response.name,
-        sprites: {
-          front_default,
-          other: {
-            ['official-artwork']: other?.['official-artwork']
-              ? {
-                  front_default: other['official-artwork'].front_default
-                }
-              : undefined,
-            showdown: other?.showdown
-              ? {
-                  front_shiny: other.showdown.front_shiny
-                }
-              : undefined
-          }
-        },
-        hp,
-        attack,
-        defense,
-        speed,
-        height: response.height,
-        weight: response.weight,
-        species: response.species
+        this.isLoading = false;
+
+        this.pokemonItem = {
+          id: pokemonId,
+          base_experience: response.base_experience,
+          name: response.name,
+          specie: response.name,
+          sprites: {
+            front_default,
+            other: {
+              ['official-artwork']: other?.['official-artwork']
+                ? {
+                    front_default: other['official-artwork'].front_default
+                  }
+                : undefined,
+              showdown: other?.showdown
+                ? {
+                    front_shiny: other.showdown.front_shiny
+                  }
+                : undefined
+            }
+          },
+          hp,
+          attack,
+          defense,
+          speed,
+          height: response.height,
+          weight: response.weight,
+          species: response.species,
+          type: type
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.notFound = true;
+
+        // show error ?
       }
-    })
+    });
   }
 
   toggleShowMore() {
@@ -103,6 +117,5 @@ export class PokemonDetailsComponent {
       'pokeball.png'
     )
   }
-
 }
 

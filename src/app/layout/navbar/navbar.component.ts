@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [ CommonModule, RouterModule],
+  imports: [ CommonModule, RouterModule ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

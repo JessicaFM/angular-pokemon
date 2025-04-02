@@ -35,9 +35,16 @@ export interface PokemonResponse {
   height: number;
   weight: number;
   species: {
-    name: string,
-    url: string
+    name: string;
+    url: string;
   }
+  types: [
+    {
+      type: {
+        name: string
+      }
+    }
+  ];
 }
 
 export interface Pokemon {
@@ -63,9 +70,10 @@ export interface Pokemon {
   height: number;
   weight: number;
   species: {
-    name: string,
-    url: string
+    name: string;
+    url: string;
   }
+  type: string;
 }
 
 export interface Species {

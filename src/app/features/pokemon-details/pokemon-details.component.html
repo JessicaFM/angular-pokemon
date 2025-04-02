@@ -1,124 +1,169 @@
-<section *ngIf="pokemonItem; else skeleton" class="pokemon-section">
-  <div class="back-row">
-    <button (click)="goBack()" class="back-btn" title="Go back">
-      ← Back
-    </button>
-  </div>
-  <div class="pokemon-section__header">
-    <h1 class="pokemon-section__header-title">{{ pokemonItem.name | titlecase }}</h1>
-    <img
-      *ngIf="pokemonItem"
-      class="pokemon-section__header-image"
-      [src]="artworkUrl"
-      [alt]="pokemonItem.name" />
-  </div>
-  <div class="pokemon-section__row">
-    <div class="pokemon-section__card">
-      <div class="pokemon-section__card-body">
-        <div class="pokemon-section__card-stats">
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="experience.png" />
-              Base Exp:</div>
-            <span class="value">{{ pokemonItem.base_experience }}</span>
-          </div>
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="hp.png" />
-              HP:</div>
-            <span class="value">{{ pokemonItem.hp }}</span>
-          </div>
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="swords.png" />
-              Attack:</div>
-            <span class="value">{{ pokemonItem.attack }}</span>
-          </div>
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="shield.png" />
-              Defense:</div>
-            <span class="value">{{ pokemonItem.defense }}</span>
-          </div>
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="speed.png" />
-              Speed:</div>
-            <span class="value">{{ pokemonItem.speed }}</span>
-          </div>
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="height.png" />
-              Height:</div>
-            <span class="value">{{ pokemonItem.height }}</span>
-          </div>
-          <div class="stat-item">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="weight.png" />
-              Weight:</div>
-            <span class="value">{{ pokemonItem.weight }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="pokemon-section__card pokemon-section__card--extra"
-      *ngIf="isShowMore && extraInfo">
-      <div class="pokemon-section__card-body">
-        <div class="pokemon-section__card-image">
-          <img
-            *ngIf="pokemonItem"
-            class="pokemon-section__card-image-box"
-            [src]="showdownUrl"
-            [alt]="pokemonItem.name" />
-        </div>
-        <div class="pokemon-section__card-stats">
-          <p class="stat-item">
-            <span class="label">Specie:</span>
-            <span class="value">{{ extraInfo.species.name }}</span>
-          </p>
-          <p class="stat-item">
-            <span class="label">Legendary:</span>
-            <span class="value">{{ extraInfo.species.is_legendary ? 'Yes' : 'No' }}</span>
-          </p>
-          <p class="stat-item">
-            <span class="label">Mythical:</span>
-            <span class="value">{{ extraInfo.species.is_mythical ? 'Yes' : 'No' }}</span>
-          </p>
-          <div class="stat-item_row" *ngIf="extraInfo.location.length>0">
-            <div class="label">
-              <img class="stat-item__location-row-icon"
-                src="location.png" />
-              Locations:</div>
-            <div class="stat-item__location">
-              <div *ngFor="let loc of extraInfo.location"
-                class="stat-item__location-row">
-                <span>{{ formatLocation(loc.location_area.name) }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="pokemon-section__footer">
-    <button class="card-button" (click)="toggleShowMore()">
-      {{ isShowMore ? 'Hide extra' : 'Show more' }}
-    </button>
-  </div>
-</section>
-
-<ng-template #skeleton>
+<ng-template *ngIf="isLoading; else doneLoading">
   <div class="skeleton-card">
     <div class="skeleton-img shimmer"></div>
     <div class="skeleton-line shimmer"></div>
     <div class="skeleton-line shimmer short"></div>
   </div>
 </ng-template>
+
+<ng-template #doneLoading>
+  <ng-container *ngIf="notFound; else showPokemon">
+    <div class="not-found container">
+      <h2>Pokémon not found</h2>
+      <p>We couldn't find the Pokémon you're looking for.</p>
+      <img src="broken-pokeball.png" alt="Not found" width="150" />
+    </div>
+  </ng-container>
+
+  <ng-template #showPokemon>
+    <section *ngIf="pokemonItem">
+      <div class="back-row">
+        <button (click)="goBack()" class="back-btn" title="Go back">
+          ← Back
+        </button>
+      </div>
+      <div class="flip-card-wrapper">
+        <div class="flip-card">
+          <div class="flip-card__inner" [class.flipped]="isShowMore">
+            <div class="flip-card__face flip-card__front" [ngClass]="pokemonItem.type">
+              <div class="flip-wrapper">
+                <div class="pokemon-section__header">
+                  <div class="pokemon-section__header-top">
+                    <div class="pokemon-section__header-top-id"># {{ pokemonItem.id }}</div>
+                    <div class="pokemon-section__header-top-type"
+                      [ngClass]="pokemonItem.type"
+                      [title]="pokemonItem.type">
+                    </div>
+                  </div>
+                  <div class="pokemon-section__header-image-wrapper">
+                    <img
+                      *ngIf="pokemonItem"
+                      class="pokemon-section__header-image-wrapper-inner"
+                      [src]="artworkUrl"
+                      [alt]="pokemonItem.name" />
+                  </div>
+                </div>
+                <div class="pokemon-section__card-body body-front">
+                  <div class="pokemon-section__card-stats">
+                    <div class="pokemon-section__header-title">
+                      <span>{{ pokemonItem.name | titlecase }}</span>
+                    </div>
+                    <div class="stat-item">
+                      <div class="label">
+                        <img class="stat-item__location-row-icon"
+                          src="experience.png" />
+                        Base Exp:</div>
+                      <span class="value">{{ pokemonItem.base_experience }} XP</span>
+                    </div>
+                    <div class="stat-item">
+                      <div class="label">
+                        <img class="stat-item__location-row-icon"
+                          src="swords.png" />
+                        Attack:</div>
+                      <span class="value">{{ pokemonItem.attack }} units</span>
+                    </div>
+                    <div class="stat-item">
+                      <div class="label">
+                        <img class="stat-item__location-row-icon"
+                          src="shield.png" />
+                        Defense:</div>
+                      <span class="value">{{ pokemonItem.defense }} units</span>
+                    </div>
+
+                    <div class="stat-item">
+                      <div class="label">
+                        <img class="stat-item__location-row-icon"
+                          src="height.png" />
+                        Height:</div>
+                      <span class="value">{{ pokemonItem.height / 10 }} m</span>
+                    </div>
+                    <div class="stat-item">
+                      <div class="label">
+                        <img class="stat-item__location-row-icon"
+                          src="weight.png" />
+                        Weight:</div>
+                      <span class="value">{{ pokemonItem.weight }} kg</span>
+                    </div>
+                    <div class="stat-item">
+                      <div class="label">
+                        <img class="stat-item__location-row-icon"
+                          src="height.png" />
+                        Type:</div>
+                      <span class="value">{{ pokemonItem.type }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="flip-card__face flip-card__back" [ngClass]="pokemonItem.type">
+              <div class="flip-wrapper">
+                <div
+                  class="pokemon-section__card pokemon-section__card--extra"
+                  *ngIf="extraInfo">
+                  <div class="pokemon-section__card-body">
+                    <div class="pokemon-section__card-image">
+                      <img
+                        *ngIf="pokemonItem"
+                        class="pokemon-section__card-image-box"
+                        [src]="showdownUrl"
+                        [alt]="pokemonItem.name" />
+                    </div>
+                    <div class="pokemon-section__card-stats">
+                      <div class="stat-item">
+                        <span class="label">Specie:</span>
+                        <span class="value">{{ extraInfo.species.name }}</span>
+                      </div>
+                      <div class="stat-item">
+                        <div class="label">
+                          <img class="stat-item__location-row-icon"
+                            src="speed.png" />
+                          Speed:</div>
+                        <span class="value">{{ pokemonItem.speed }} miles/hour</span>
+                      </div>
+                      <div class="stat-item">
+                        <div class="label">
+                          <img class="stat-item__location-row-icon"
+                            src="hp.png" />
+                          Health Points:</div>
+                        <span class="value">{{ pokemonItem.hp }} hp</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="label">Legendary:</span>
+                        <span class="value">{{ extraInfo.species.is_legendary ? 'Yes' : 'No' }}</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="label">Mythical:</span>
+                        <span class="value">{{ extraInfo.species.is_mythical ? 'Yes' : 'No' }}</span>
+                      </div>
+                      <div class="stat-item_row" *ngIf="extraInfo.location.length>0">
+                        <div class="label">
+                          <img class="stat-item__location-row-icon"
+                            src="location.png" />
+                          Locations:</div>
+                        <div class="stat-item__location">
+                          <div *ngFor="let loc of extraInfo.location"
+                            class="stat-item__location-row">
+                            <span>{{ formatLocation(loc.location_area.name) }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card__button-wrapper">
+            <button (click)="toggleShowMore()" class="card-button">
+              {{ isShowMore ? 'Hide extra' : 'Show more' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+</ng-template>
+
+
+

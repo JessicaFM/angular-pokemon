@@ -14,8 +14,8 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
 export class PokemonListComponent {
   readonly pokemonList$;
   readonly currentPage$;
-  isLoading = true;
-  hasImageError = false;
+  isLoading:boolean = true;
+  hasImageError:boolean = false;
 
   constructor(public store: PokemonStoreService) {
     this.currentPage$ = this.store.currentPage$;
