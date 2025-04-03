@@ -31,6 +31,8 @@ cd angular-pokemon
 ```
 
 ### 2. Install dependencies
+Node version support for Angular 19: ^18.19.1 || ^20.11.1 || ^22.0.0
+
 ```bash
 npm install
 ```
