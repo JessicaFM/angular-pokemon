@@ -1,8 +1,10 @@
+// Interface for maping general pokemon data result
 export interface PokemonListItemsResponse {
   count: number;
   results: PokemonListItem[]
 }
 
+// Interface for pokemon object list
 export interface PokemonListItem {
   name: string;
   url: string;
@@ -11,6 +13,7 @@ export interface PokemonListItem {
   base_experience: number;
 }
 
+// Interface for mapping single pokemon data result
 export interface PokemonResponse {
   base_experience: number;
   name: string;
@@ -47,6 +50,7 @@ export interface PokemonResponse {
   ];
 }
 
+// Interface for mapping pokemon object
 export interface Pokemon {
   id: number;
   base_experience: number;
@@ -76,6 +80,7 @@ export interface Pokemon {
   type: string;
 }
 
+// Interface for mapping pokemon species data than we like to show
 export interface Species {
   name: string;
   base_happiness: number;
@@ -84,6 +89,7 @@ export interface Species {
   is_mythical: boolean;
 }
 
+// Interface for mapping pokemon locations data
 export interface Location {
   location_area: {
     name: string;

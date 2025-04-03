@@ -27,6 +27,7 @@ export class PokemonDetailsComponent {
   constructor(private router: Router) {
     const pokemonId = Number(this.route.snapshot.params['id']);
 
+    // Call for pokemon info
     this.pokeapiServices.getPokemonById(pokemonId).subscribe({
       next: (response: PokemonResponse) => {
         const { front_default, other } = response.sprites;
@@ -36,8 +37,10 @@ export class PokemonDetailsComponent {
         const speed = response.stats.find(stat => stat.stat.name === 'speed')?.base_stat ?? 0;
         const type = response.types[0].type.name;
 
+        // Data is loading
         this.isLoading = false;
 
+        // Build pokemon object
         this.pokemonItem = {
           id: pokemonId,
           base_experience: response.base_experience,
@@ -69,17 +72,18 @@ export class PokemonDetailsComponent {
         }
       },
       error: (err) => {
+        // If there is any error on api callback / object build
         this.isLoading = false;
         this.notFound = true;
-
-        // show error ?
       }
     });
   }
 
+  // Reverse Card
   toggleShowMore() {
     this.isShowMore = !this.isShowMore;
 
+    // Load extra data for card back info
     if (this.isShowMore && !this.extraInfo && this.pokemonItem) {
       const id = this.pokemonItem.id;
 
@@ -95,14 +99,17 @@ export class PokemonDetailsComponent {
     }
   }
 
+  // Return to home (list)
   goBack() {
     this.router.navigate(['']);
   }
 
+  // Format string for pokemon locations
   formatLocation(name: string): string {
     return name.replace(/-/g, ' ');
   }
 
+  // Get Pokemon artwork image if it exist, else show default image -> pokeball
   get artworkUrl(): string {
     return (
       this.pokemonItem?.sprites?.other?.['official-artwork']?.front_default ||
@@ -111,6 +118,7 @@ export class PokemonDetailsComponent {
     );
   }
 
+  // Get showdown pokemon image if exists, else sho default image -> pokeball
   get showdownUrl(): string {
     return (
       this.pokemonItem?.sprites?.other?.showdown?.front_shiny ||

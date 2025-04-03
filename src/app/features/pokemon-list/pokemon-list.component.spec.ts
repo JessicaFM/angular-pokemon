@@ -24,7 +24,7 @@ describe('PokemonListComponent', () => {
         ],
         currentPage: 1,
         total: 100,
-        pageSize: 10
+        pageSize: 0
       }),
       pokemonListAll$: of([]),
       searchTerm$: of('')

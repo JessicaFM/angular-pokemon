@@ -26,9 +26,9 @@
         </thead>
         <tbody>
           <tr *ngIf="data.list.length === 0">
-            <td colspan="4" class="empty-message">No Pokémon found with that search.</td>
+            <td colspan="4" data-testid="empty-state" class="empty-message">No Pokémon found with that search.</td>
           </tr>
-          <tr *ngFor="let pokemon of data.list">
+          <tr *ngFor="let pokemon of data.list" data-testid="pokemon-card">
             <ng-container *ngIf="!pokemon.image">
               {{ store.loadMoreDetailsList(pokemon) }}
             </ng-container>
@@ -42,6 +42,7 @@
                     class="pokemon-image"
                     (load)="onImageLoad()"
                     (error)="onImageError()"
+                    data-testid="pokemon-image"
                   />
                   <div *ngIf="isLoading"
                     class="loader"
@@ -53,12 +54,13 @@
                   <img
                     src="pokeball.png"
                     alt="Loading Pokémon image"
-                    class="pokemon-pokeball "
+                    class="pokemon-pokeball"
+                    data-testid="image-error"
                   />
                 </ng-template>
               </div>
             </td>
-            <td>
+            <td data-testid="pokemon-name">
               {{ pokemon.name }}
             </td>
             <td class="mobile-hide">
@@ -77,6 +79,7 @@
       <button (click)="store.previousPage()"
         class="pagination-btn"
         title="Go previous page"
+        aria-label="Previous page"
         [disabled]="data.currentPage === 1">
         ←
       </button>
@@ -99,6 +102,7 @@
         (click)="store.nextPage(data.total)"
         class="pagination-btn"
         title="Go previous page"
+        aria-label="Next page"
         [disabled]="data.currentPage * data.pageSize >= data.total">
         →
       </button>

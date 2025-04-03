@@ -12,7 +12,8 @@ export class PokemonStoreService {
   private readonly allPokemonsSubject = new BehaviorSubject<PokemonListItem[]>([]);
   readonly allPokemons$ = this.allPokemonsSubject.asObservable();
 
-  // searchTerm can change store value, searchTerm$ is just readable and cannot be modified  at any point
+  // searchTerm can change store value;
+  // searchTerm$ is just readable and cannot be modified  at any point
   private searchTerm = new BehaviorSubject<string>('');
   readonly searchTerm$ = this.searchTerm.asObservable();
 
@@ -53,6 +54,7 @@ export class PokemonStoreService {
     map(([allPokemons, search, sortAsc, page]) => {
       let filtered = allPokemons.filter(p => p.name.toLowerCase().includes(search));
 
+      // Filter resuls by pokemon name order
       filtered = filtered.sort((a, b) =>
         sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
       );
@@ -73,11 +75,16 @@ export class PokemonStoreService {
     })
   );
 
+  // If we need to load more pokemon details
   loadMoreDetailsList(pokemon: PokemonListItem) {
+    // If we already have the image, just past
     if (pokemon.image || this.loadedDetails.has(pokemon.id)) return;
 
+    // if not, first add pokemon id
     this.loadedDetails.add(pokemon.id);
 
+    // Get more pokemon data, like image, and base experience from
+    // pokeapi endpoint
     this.pokeapiServices.getPokemonById(pokemon.id).subscribe(detail => {
       const updatedItem = {
         ...pokemon,
@@ -85,8 +92,13 @@ export class PokemonStoreService {
         base_experience: detail.base_experience
       };
 
+      // Clone the current Pokémon list
       const allItems = [...this.allPokemonsSubject.value];
+
+      // Replace the Pokémon in the list with the updated item
       allItems.splice(allItems.findIndex(p => p.id === pokemon.id), 1, updatedItem);
+
+      // Update the Pokémon list in the store
       this.allPokemonsSubject.next(allItems);
     });
   }
@@ -101,25 +113,30 @@ export class PokemonStoreService {
     this.currentPage.next(1);
   }
 
+  // List name ordered
   toggleSort() {
     this.sortAsc.next(!this.sortAsc.value);
   }
 
+  // Pagination: store service to go to a specific page
   goToPage(page: number) {
     this.currentPage.next(page);
   }
 
+  // Pagination: store service to go to previous page
   previousPage() {
     const current = this.currentPage.value;
     if (current > 1) this.currentPage.next(current - 1);
   }
 
+  // Pagination: store service to go to next page
   nextPage(totalItems: number) {
     const totalPages = Math.ceil(totalItems / this.pageSize);
     const current = this.currentPage.value;
     if (current < totalPages) this.currentPage.next(current + 1);
   }
 
+  // Pagination: pages constructor to write pagination on template
   getPages(total: number, pageSize: number, currentPage: number): (number | '...')[] {
     const totalPages = Math.ceil(total / pageSize);
     const pages: (number | '...')[] = [];

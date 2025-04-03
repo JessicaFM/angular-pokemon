@@ -85,11 +85,9 @@
                       <span class="value">{{ pokemonItem.weight }} kg</span>
                     </div>
                     <div class="stat-item">
-                      <div class="label">
-                        <img class="stat-item__location-row-icon"
-                          src="height.png" />
+                      <div class="label label-extra">
                         Type:</div>
-                      <span class="value">{{ pokemonItem.type }}</span>
+                      <span class="value value-extra">{{ pokemonItem.type }}</span>
                     </div>
                   </div>
                 </div>
@@ -111,7 +109,11 @@
                     </div>
                     <div class="pokemon-section__card-stats">
                       <div class="stat-item">
-                        <span class="label">Specie:</span>
+                        <div class="label">
+                          <img class="stat-item__location-row-icon"
+                            src="specie.png" />
+                          Specie:
+                        </div>
                         <span class="value">{{ extraInfo.species.name }}</span>
                       </div>
                       <div class="stat-item">
@@ -129,11 +131,17 @@
                         <span class="value">{{ pokemonItem.hp }} hp</span>
                       </div>
                       <div class="stat-item">
-                        <span class="label">Legendary:</span>
+                        <div class="label">
+                          <img class="stat-item__location-row-icon"
+                            src="legendary.png" />
+                          Legendary:</div>
                         <span class="value">{{ extraInfo.species.is_legendary ? 'Yes' : 'No' }}</span>
                       </div>
                       <div class="stat-item">
-                        <span class="label">Mythical:</span>
+                        <div class="label">
+                          <img class="stat-item__location-row-icon"
+                            src="mythical.png" />
+                            Mythical:</div>
                         <span class="value">{{ extraInfo.species.is_mythical ? 'Yes' : 'No' }}</span>
                       </div>
                       <div class="stat-item_row" *ngIf="extraInfo.location.length>0">

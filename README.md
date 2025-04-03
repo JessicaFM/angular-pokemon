@@ -1,65 +1,49 @@
-# AngularPokemon
+# Pokédex App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+Welcome to the Pokédex web application!  
+This project is built with **Angular 19**, uses **standalone components**, and includes **unit testing with Karma & Jasmine**.
 
-## Development server
+## 🚀 Features
 
-To start a local development server, run:
+- 🔍 Search and filter Pokémon
+- 📋 Paginated list of Pokémon with official artwork
+- 📄 Pokémon detail view with stats, types, and location info
+- 📡 Data fetched from the [PokéAPI](https://pokeapi.co/)
+- 🧪 Unit tests with Karma + Jasmine
+- 💅 Responsive UI with SCSS and CSS variables
 
+## 📦 Tech Stack
+
+- **Angular 19** (standalone components)
+- **RxJS** for reactive streams
+- **Karma + Jasmine** for unit testing
+- **SCSS** with custom properties (CSS variables)
+- **PokéAPI** for Pokémon data
+
+
+## ⚙️ Getting Started
+
+### 1. Clone the repo
+
+```bash
+git https://github.com/JessicaFM/angular-pokemon.git
+cd angular-pokemon
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Run the app locally
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Then open http://localhost:4200 🚀
 
 
-## Icons attribution
+
+## Extra: Icons attribution
 <a href="https://www.freepik.com/icon/swords_5560663#fromView=search&page=1&position=2&uuid=13862326-3ad0-4d5c-93d9-5d879510659f">Icon by Freepik</a>
 
 <a href="https://www.freepik.com/icon/shield_13808150#fromView=search&page=1&position=24&uuid=36999500-cb31-4919-b7d3-a4fe18f48bd7">Icon by ranksol graphics</a>
@@ -79,3 +63,9 @@ For more information on using the Angular CLI, including detailed command refere
 <a href="https://www.freepik.com/icon/hospital_674139#fromView=search&page=1&position=57&uuid=2e544453-5c92-4184-b5c6-3e83e556d27c">Icon by Freepik</a>
 
 <a href="https://www.freepik.com/icon/gps_15949802#fromView=search&page=1&position=32&uuid=c901ff97-86c9-408f-af2e-3f024e7de18a">Icon by Ihdizein</a>
+
+<a href="https://www.freepik.com/icon/pawprint_4020331#fromView=search&page=1&position=89&uuid=4cd7eb88-01b3-4618-bd8f-331ca74a19fd">Icon by Good Ware</a>
+
+<a href="https://www.freepik.com/icon/magic-book_7470779#fromView=search&page=1&position=28&uuid=7cacb223-0195-4c7f-aeb2-3340ad6c979e">Icon by Enrique Valle</a>
+
+<a href="https://www.freepik.com/icon/book_4951802#fromView=search&page=2&position=28&uuid=5be4b3df-d13f-4aef-92fa-039eb94a84f1">Icon by Smashicons</a>
