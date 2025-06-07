@@ -1,0 +1,126 @@
+<section *ngIf="playerPokemon && opponentPokemon" class="battle-layout">
+  <div class="back-row">
+    <button (click)="goBack()" class="back-btn" title="Go back">
+      ← Back
+    </button>
+  </div>
+  <div class="battle-turn" [ngClass]="{ 'is-win': winner }">
+    <ng-container *ngIf="!winner">
+      Current Turn: <strong>{{ currentTurn === 'player' ? 'You' : 'Opponent' }}</strong>
+    </ng-container>
+    <ng-container *ngIf="winner">
+      Result: <strong>{{ winner }}</strong>
+    </ng-container>
+  </div>
+
+  <div class="board">
+  <!-- Carta del jugador -->
+    <div class="flip-card__face"
+      [ngClass]="[
+        playerPokemon.type,
+        winner === 'You win!' ? 'winner' : winner ? 'loser' : '',
+        currentTurn === 'player' ? 'attacking' : ''
+      ]">
+      <div class="flip-wrapper">
+        <div class="pokemon-section__header">
+          <div class="pokemon-section__header-top">
+            <div class="pokemon-section__header-top-id"># {{ playerPokemon.id }}</div>
+            <div class="pokemon-section__header-top-type" [ngClass]="playerPokemon.type"></div>
+          </div>
+          <div class="pokemon-section__header-image-wrapper">
+            <img
+              class="pokemon-section__header-image-wrapper-inner"
+              [src]="getImage(playerPokemon)"
+              [alt]="playerPokemon.name"
+            />
+          </div>
+        </div>
+        <div class="pokemon-section__card-body">
+          <div class="pokemon-section__card-stats">
+            <div class="stat-item">
+              <div class="label">Name:</div>
+              <span class="value">{{ playerPokemon.name | titlecase }}</span>
+            </div>
+            <div class="stat-item">
+              <div class="label">HP:</div>
+              <span class="value">{{ playerHP }} / {{ playerPokemon.hp }}</span>
+            </div>
+            <div class="stat-item">
+              <div class="label">Attack:</div>
+              <span class="value">{{ playerPokemon.attack }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <div class="battle-controls">
+      <!-- Start battle -->
+      <button *ngIf="!battleStarted && !winner" (click)="startBattle()">Start Battle</button>
+
+      <!-- Attack -->
+      <button
+        *ngIf="battleStarted && !winner"
+        (click)="pokemonAttack()"
+        [disabled]="isBusy">
+        {{ actionLabel }}
+      </button>
+
+      <!-- Restart -->
+      <button *ngIf="winner" (click)="restartBattle()">Restart with new Opponent</button>
+
+      <!-- Battle Log -->
+      <div class="battle-log">
+          <ul>
+            <li *ngFor="let message of battleLog">{{ message }}</li>
+          </ul>
+      </div>
+    </div>
+
+    <!-- Carta del oponente -->
+    <div class="flip-card__face"
+      [ngClass]="[
+        opponentPokemon.type,
+        winner === 'You lose!' ? 'winner' : winner ? 'loser' : '',
+        currentTurn === 'opponent' ? 'attacking' : ''
+      ]">
+      <div class="flip-wrapper">
+        <div class="pokemon-section__header">
+          <div class="pokemon-section__header-top">
+            <div class="pokemon-section__header-top-id"># {{ opponentPokemon.id }}</div>
+            <div class="pokemon-section__header-top-type" [ngClass]="opponentPokemon.type"></div>
+          </div>
+          <div class="pokemon-section__header-image-wrapper">
+            <img
+              class="pokemon-section__header-image-wrapper-inner"
+              [src]="getImage(opponentPokemon)"
+              [alt]="opponentPokemon.name"
+            />
+          </div>
+        </div>
+        <div class="pokemon-section__card-body">
+          <div class="pokemon-section__card-stats">
+            <div class="stat-item">
+              <div class="label">Name:</div>
+              <span class="value">{{ opponentPokemon.name | titlecase }}</span>
+            </div>
+            <div class="stat-item">
+              <div class="label">HP:</div>
+              <span class="value">{{ opponentHP }} / {{ opponentPokemon.hp }}</span>
+            </div>
+            <div class="stat-item">
+              <div class="label">Attack:</div>
+              <span class="value">{{ opponentPokemon.attack }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="winner" class="battle-result">
+    <h2>{{ winner }}</h2>
+  </div>
+</section>

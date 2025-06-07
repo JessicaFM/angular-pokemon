@@ -1,0 +1,229 @@
+.battle-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 1rem;
+}
+
+.battle-turn {
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #e0e0e0, #f8f8f8);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: var(--text-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.flip-card__face {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 1rem;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: transform 0.4s ease;
+  backface-visibility: hidden;
+
+  .flip-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.pokemon-section__header {
+  text-align: center;
+
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+
+    &-id {
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    &-type {
+      height: 20px;
+      width: 16px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  &-image-wrapper {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, white 0%, #cccccc 40%, #888 100%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1),
+      0 0 40px rgba(200, 200, 200, 0.4),
+      inset 0 0 20px rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+
+    &-inner {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.pokemon-section__card-body {
+  padding-top: 1rem;
+}
+
+.pokemon-section__card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+
+    .label {
+      font-weight: 500;
+      color: #666;
+    }
+  }
+}
+
+.battle-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+
+  button {
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #2a3aa2;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .battle-log {
+    background: #f4f4f4;
+    border: 1px solid var(--custom-grey-border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    max-height: 280px;
+    overflow-y: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Courier New', monospace;
+    width: 100%;
+    max-width: 480px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 0.4rem 0;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        animation: fadeIn 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+.battle-result {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-top: 1.5rem;
+}
+
+.winner {
+  background-color: #e6ffe9 !important; // suave verde menta
+  box-shadow: 0 0 16px 4px var(--accent-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(1.03);
+  border: 2px solid var(--accent-color);
+}
+
+.loser {
+  filter: grayscale(0.8) brightness(0.85);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.attacking {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 4px;
+  box-shadow: 0 0 12px 4px var(--accent-color);
+  animation: pulseAttack 0.6s infinite alternate;
+}
+
+@keyframes pulseAttack {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 12px 4px var(--accent-color);
+  }
+  100% {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px 6px var(--accent-color);
+  }
+}
+
+@media (min-width: 768px) {
+  .board {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .battle-controls {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

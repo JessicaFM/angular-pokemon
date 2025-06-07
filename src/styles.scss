@@ -120,6 +120,27 @@ body {
   border-left: 4px solid steelblue;
 }
 
+.back-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: #2a3aa2;
+  }
+}
+
+.back-row {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+}
 
 @media (min-width: 576px) {
   .container {

@@ -3,27 +3,48 @@ section {
   display: block;
   .page-header {
     text-align: center;
-    padding-bottom: 3rem;
-    .pokedex-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color, #ef5350);
-      margin-bottom: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .pokedex-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .pokedex-description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    //max-width: 720px;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+
+    p {
+      margin: 0;
+      //max-width: 600px;
     }
-    .pokedex-description {
-      font-size: 1.1rem;
-      color: #444;
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      img.pikachu-inline {
-        width: 48px;
-        height: auto;
+
+    strong {
+      color: var(--accent-color);
+    }
+
+    .pokedex-description br {
+      display: none;
+
+      @media (min-width: 480px) {
+        display: initial;
       }
+    }
+
+    .pikachu-gif {
+      width: 60px;
+      height: auto;
+      flex-shrink: 0;
     }
   }
 
@@ -139,3 +160,33 @@ section {
     color: #999;
   }
 }
+
+.actions-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+
+  a {
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .list-view {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s;
+  }
+
+  .list-view:hover {
+    transform: scale(1.2);
+  }
+
+  .action-label {
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+    color: var(--text-color);
+  }
+}
+

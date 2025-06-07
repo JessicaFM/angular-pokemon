@@ -15,6 +15,11 @@ export const routes: Routes = [
     title: 'Pokemon Detail'
   },
   {
+    path: 'battle/:id',
+    loadComponent: () => import('./features/pokemon-battle/pokemon-battle.component').then(m => m.PokemonBattleComponent),
+    title: 'Pokemon battle'
+  },
+  {
     path: '**',
     component: NotFoundComponent,
     title: 'Not Found'

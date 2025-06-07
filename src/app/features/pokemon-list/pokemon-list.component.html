@@ -2,11 +2,14 @@
   <div class="container">
     <div class="page-header">
       <h1 class="pokedex-title">Pokédex</h1>
-      <p class="pokedex-description">
-        <img src="pikachu.gif" alt="pikachu" class="pikachu-inline" />
-        Welcome to the Pokédex! Here you can browse, search, and learn about all your favorite Pokémon.
-        Use the search bar to quickly find specific Pokémon or navigate through the pages to explore them all.
-      </p>
+      <div class="pokedex-description">
+        <img src="pikachu.gif" alt="Pikachu" class="pikachu-gif" />
+        <p>
+          Welcome to the Pokédex! Here you can browse, search, and learn all about your favorite Pokémon.
+          <br />
+          <strong>Click “Details”</strong> to explore stats, or <strong>“Battle”</strong> to challenge them in a fight!
+        </p>
+      </div>
     </div>
     <app-search-bar></app-search-bar>
     <div class="table-wrapper">
@@ -66,9 +69,14 @@
             <td class="mobile-hide">
               {{ pokemon.base_experience }} XP
             </td>
-            <td>
-              <a [routerLink]="['/details', pokemon.id]" title="View pokemon">
-                <img src="search.png" alt="View pokemon" class="list-view"/>
+            <td class="actions-cell">
+              <a [routerLink]="['/battle', pokemon.id]" title="Battle this Pokémon">
+                <img src="fight.png" alt="Battle" class="list-view" />
+                <span class="action-label">Battle</span>
+              </a>
+              <a [routerLink]="['/details', pokemon.id]" title="View details">
+                <img src="search.png" alt="View" class="list-view" />
+                <span class="action-label">Details</span>
               </a>
             </td>
           </tr>

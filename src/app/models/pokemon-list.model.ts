@@ -15,6 +15,7 @@ export interface PokemonListItem {
 
 // Interface for mapping single pokemon data result
 export interface PokemonResponse {
+  id: number,
   base_experience: number;
   name: string;
   specie: string;
